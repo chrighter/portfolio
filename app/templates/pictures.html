@@ -1,0 +1,58 @@
+{% extends "header.html" %}
+
+{% block body %}
+        <div class="container pic"> 
+            <div class="row"> 
+                <div class="col-md-3 col-sm-4 col-xs-6 thumb"> 
+                    <a class="fancyimage" data-fancybox-group="group" href="https://pp.vk.me/c837135/v837135014/84b6/UIRMY3q1HUQ.jpg"> 
+                        <img class="img-responsive" src="https://pp.vk.me/c837135/v837135014/84b6/UIRMY3q1HUQ.jpg" alt="picture1.jpg"/> 
+                    </a> 
+                </div> 
+                <div class="col-md-3 col-sm-4 col-xs-6 thumb"> 
+                    <a class="fancyimage" data-fancybox-group="group" href="https://pp.vk.me/c837135/v837135014/84be/hvteDNIR3ME.jpg"> 
+                        <img class="img-responsive" src="https://pp.vk.me/c837135/v837135014/84be/hvteDNIR3ME.jpg" alt="picture2.jpg"/> 
+                    </a> 
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 thumb"> 
+                    <a class="fancyimage" data-fancybox-group="group" href="https://pp.vk.me/c837135/v837135014/84c5/QB6oSISps4I.jpg"> 
+                        <img class="img-responsive" src="https://pp.vk.me/c837135/v837135014/84c5/QB6oSISps4I.jpg" alt="picture3.jpg" /> 
+                    </a> 
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 thumb"> 
+                    <a class="fancyimage" data-fancybox-group="group" href="https://pp.vk.me/c837135/v837135014/84d5/lVKlW5hUcrU.jpg"> 
+                        <img class="img-responsive" src="https://pp.vk.me/c837135/v837135014/84d5/lVKlW5hUcrU.jpg" alt="picture4.jpg" /> 
+                    </a> 
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 thumb"> 
+                    <a class="fancyimage" data-fancybox-group="group" href="https://pp.vk.me/c638319/v638319014/353a/TR3Ii1dQ1to.jpg"> 
+                        <img class="img-responsive" src="https://pp.vk.me/c638319/v638319014/353a/TR3Ii1dQ1to.jpg" alt="picture5.jpg"/> 
+                    </a> 
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 thumb"> 
+                    <a class="fancyimage" data-fancybox-group="group" href="https://pp.vk.me/c837135/v837135014/84cc/YniKNGBT1Gw.jpg"> 
+                        <img class="img-responsive" src="https://pp.vk.me/c837135/v837135014/84cc/YniKNGBT1Gw.jpg" alt="picture6.jpg"/> 
+                    </a> 
+                </div>
+            </div> 
+        </div> 
+        <footer>
+            <div class="container-fluid">
+                <div class="col-md-6">
+                    <h2 class="likes">Обо мне</h2>
+                    <p class="simpletext">Я <a href="about.html">Кристина</a></p>
+                </div>
+                <div class="col-md-6">
+                   <h2 class="likes">Контакты</h2>
+                   <p class="simpletext">Если вы хотите связаться со мной по рабочим вопросам или просто написать "Привет", используйте следующие ресурсы:</p>
+                    <p>
+                        <a href="mailto:christina.ilyenko@yandex.ru" target="_blank"><img src=" {{ url_for('static', filename='mail.ico') }}" alt="@mail"></a> 
+                        <a href="https://vk.com/id137560014" target="_blank"> <img src=" {{ url_for('static', filename='vk.ico') }}"  alt="vk.com"> </a> 
+                        <a href="https://instagram.com/chrighter" target="_blank"> <img src=" {{ url_for('static', filename='inst.ico') }}" alt="inst.com"> </a>
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <p class="simpletext">Designed by Ilyenko Christina &copy;, 2016</p>
+                </div>
+            </div>
+        </footer>
+{% endblock %}

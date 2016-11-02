@@ -1,0 +1,88 @@
+.logo-icon {
+    position: absolute;
+}
+
+.intro {
+   background-image: url(bgbig.jpg);
+/*    height: 100%;*/
+    background-position: right;
+    width: 100%;
+    background-repeat: no-repeat;
+}
+
+
+.Hello {
+    font-family: 'RobotoCondensed';
+    color:crimson; 
+    font-size: 65px;
+}
+
+.name {
+    font-family: 'RobotoCondensed';
+    color: dimgray; 
+    font-size: 55px;
+}
+
+.likes {
+    font-family: 'RobotoCondensed';
+    color:deeppink;
+    font-size: 45px;
+}
+
+.readmore {
+    font-family: 'RobotoCondensed';
+    font-size: 20px;
+}
+
+
+.simpletext {
+    font-family: 'RobotoCondensed';
+    font-size: 20px;
+}
+
+.introduction {
+    padding: 10%;
+}
+
+.ornament {
+    padding-left: 30%;
+}
+
+
+a:hover {
+  text-decoration: underline;
+}
+
+.col-md-12 p {
+    text-align: center;
+}
+
+.col-md-6 article p:first-letter  {
+	       font-family: RobotoCondensed;
+	       font-size: 200%;
+	       color: deeppink;
+}
+
+.social {
+    position: absolute;
+    
+}
+
+@font-face
+{
+font-family: 'RobotoCondensed';
+src: url(RobotoCondensed.ttf) format('truetype');
+}
+
+.aboutt {
+    background-color:white;
+    width: 100%;
+    height: 100%;
+}
+
+.pic {
+    background-color:white;
+    width: 100%;
+    height: 100%;
+}
+

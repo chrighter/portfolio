@@ -1,0 +1,56 @@
+{% extends "header.html" %}
+
+{% block body %}
+<div class="container aboutt">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <img class="img-responsive" src="https://pp.vk.me/c638020/v638020014/14d1/WWYGJioeRvs.jpg" alt="Мое фото">
+                            <blockquote class="simpletext">
+                                Она, конечно не совершенство… но шедевр еще тот…
+                            </blockquote>
+		    	         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="simpletext">
+                            <p>
+                                Меня зовут Кристина Ильенко. <p> Я люблю программирование и обожаю танцы. Поэтому после окончания школы я в темпе вальса поступила на <a href="http://imkn.urfu.ru/#!path=llff_Lw" target="_blank"> математико-механический факультет </a> <a href="https://urfu.ru" target="_blank"> Уральского Федерального университета имени первого Президента России Б.Н. Ельцина. </a>
+                            </p>
+                            <br>
+                            <p> 
+                                Я обсуждаю все, что находится вокруг меня, и связываюсь со своими друзьями в <a href="https://vk.com/id137560014" target="_blank"> vk.com </a> 
+                            </p>
+                            <br>
+<!--
+                            <p> 
+                                Будучи фотографом-любителем, я выкладываю сделанные снимки в <a href="https://instagram.com/chrighter" target="_blank"> instagram.com </a> 
+                            </p>
+-->
+                            <p>
+                                 Если у вас есть какие-нибудь вопросы, или вы просто хотите сказать мне "привет", вы можете связаться со мной по <a href="mailto:christina.ilyenko@yandex.ru" target="_blank">christina.ilyenko@yandex.ru</a> 
+                            </p> 
+		    	         </div>
+                    </div>
+                </div>
+            </div>
+            <footer>
+            <div class="container-fluid">
+                <div class="col-md-6">
+                    <h2 class="likes">Обо мне</h2>
+                    <p class="simpletext">Я <a href="about.html">Кристина</a></p>
+                </div>
+                <div class="col-md-6">
+                   <h2 class="likes">Контакты</h2>
+                    <p class="simpletext">Если вы хотите связаться со мной по рабочим вопросам или просто написать "Привет", используйте следующие ресурсы:</p>
+                    <p>
+                        <a href="mailto:christina.ilyenko@yandex.ru" target="_blank"><img src=" {{ url_for('static', filename='mail.ico') }}" alt="@mail"></a> 
+                        <a href="https://vk.com/id137560014" target="_blank"> <img src=" {{ url_for('static', filename='vk.ico') }}"  alt="vk.com"> </a> 
+                        <a href="https://instagram.com/chrighter" target="_blank"> <img src=" {{ url_for('static', filename='inst.ico') }}" alt="inst.com"> </a>
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <p class="simpletext">Designed by Ilyenko Christina &copy;, 2016</p>
+                </div>
+            </div>
+        </footer>
+{% endblock %}

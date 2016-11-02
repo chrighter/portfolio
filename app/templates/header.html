@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>Hi! I'm Christina!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Привет! Я Кристина и я хотела бы рассказать о себе">
+        <meta name="author" content="Кристина Ильенко">
+        <meta name="keywords" content="портфолио, программирование, кристина, ильенко, portfolio, identity, skills, навыки">
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mystyles.css' )}}" type="text/css">
+        <style>
+            body {
+                padding-top: 60px;
+            }
+        </style>
+        {% block mainstyle %}
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ url_for('static', filename='icon2.ico' )}}"/>
+    </head> 
+    <body>        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="logo-icon">
+                <img src="http://icons.iconarchive.com/icons/jeanette-foshee/simpsons-11/32/Rollover-Mischievous-Bart-1-icon.png" alt="icon">
+            </div>
+<!--            <a class="brand" href="#">Портфолио</a>   -->
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+<!--                 @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })-->
+                </div>
+            
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="action">
+                            <a href="/main">Главная</a>
+                        </li>
+                        <li>
+                            <a href="/about">Обо мне</a>
+                        </li>
+                        <li>
+                            <a href="/pictures">Фотографии</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% block body %}
+        {% endblock %}
+        <!-- /container -->
+         <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+       <script src="http://getbootstrap.com/2.3.2/assets/js/jquery.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-transition.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-alert.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-modal.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-dropdown.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-scrollspy.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-tab.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-tooltip.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-popover.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-button.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-collapse.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-carousel.js"></script>
+        <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-typeahead.js"></script>
+    </body>
+</html>
