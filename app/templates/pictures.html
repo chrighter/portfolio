@@ -18,17 +18,17 @@
         </div>
 
         <div class="row gallery">  
-            <div class="col-sm-6 col-md-4 col-lg-3 mySlides"> 
+            <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
                    <img src="{{ url_for('static', filename='1picthumb.jpg' )}}" id="1thumb" alt="1 thumb" class="decorthumb" onclick="show('1pic.jpg')" data-bigpicture="1">
            </div>
-           <div class="col-sm-6 col-md-4 col-lg-3 mySlides"> 
+           <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
 <!--                   <a href="#" id="thumbnail" class="thumb">-->
                        <img src="{{ url_for('static', filename='2picthumb.jpg' )}}" id="2thumb" alt="2 thumb" class="decorthumb" onclick="show('2pic.jpg')" data-bigpicture="2">
             </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mySlides"> 
+            <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
                        <img src="{{ url_for('static', filename='3picthumb.jpg' )}}" id="3thumb" alt="2 thumb" class="decorthumb" onclick="show('3pic.jpg')"  data-bigpicture="3">
             </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mySlides"> 
+            <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
                        <img src="{{ url_for('static', filename='4picthumb.jpg' )}}" id="4thumb" alt="2 thumb" class="decorthumb" onclick="show('4pic.jpg')" data-bigpicture="4">
             </div>   
          </div>
@@ -42,11 +42,10 @@
             function currentSlide(n) {
                 showSlides(slideIndex = n);
             }
-            var slides = document.getElementsByClassName("mySlides");
+            var slides = document.getElementsByClassName("myslides");
 
             function showSlides(n, pic) {
                 var i;
-//                var slides = document.getElementsByClassName("mySlides");
                 var arr = ['1pic.jpg', '2pic.jpg', '3pic.jpg', '4pic.jpg']
                 if (n > slides.length) {slideIndex = 1}
                 if (n < 1) {slideIndex = slides.length}
