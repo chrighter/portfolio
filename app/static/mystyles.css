@@ -3,8 +3,7 @@
 }
 
 .intro {
-   background-image: url(bgbig.jpg);
-/*    height: 100%;*/
+    background-image: url(bgbig.jpg);
     background-position: right;
     width: 100%;
     background-repeat: no-repeat;
@@ -15,6 +14,62 @@
     font-family: 'RobotoCondensed';
     color:crimson; 
     font-size: 65px;
+}
+
+.modal-title {
+    font-family: 'RobotoCondensed';
+    font-size: 25px;
+    color: deeppink;
+}
+
+.close {
+    font-family: 'RobotoCondensed';
+    font-size: 25px;
+    color: deeppink;
+}
+
+#myModal {
+                overflow-y: auto;
+                padding: 15px;
+                z-index: 1;
+                position: fixed;
+            }
+            .decorthumb {
+                border: solid 1px;
+                border-color: deeppink;
+                padding: 10px;
+            }
+            .modal-content {
+                margin: 5% auto; 
+/*                f*/
+                border: 1px solid #888;
+/*                width: 150%; */
+            }       
+            .modal-dialog {
+                margin: 30px, auto;
+                width: 600px;
+            }    
+            .modal-body {
+                background-image: url('loadgif.gif');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            .modal {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                height: 100%;
+                transform: translate(-50%,-50%);
+            }
+            
+            .modal-header .modal-footer .modal-content {
+                border: 1px solid deeppink;
+            }
+
+.modal-footer {
+    font-family: 'RobotoCondensed';
+    font-size: 25px;
+    color: deeppink;
 }
 
 .name {
@@ -58,7 +113,7 @@ a:hover {
 }
 
 .col-md-6 article p:first-letter  {
-	       font-family: RobotoCondensed;
+	       font-family: 'RobotoCondensed';
 	       font-size: 200%;
 	       color: deeppink;
 }

@@ -31,8 +31,13 @@ def main():
 def about():
     return render_template('about.html', title = 'about')
 
+@app.route('/pictures/<image>')
 @app.route('/pictures')
-def pictures():
+def pictures(image=None):
     return render_template('pictures.html', title = 'pictures')
+
+@app.route('/help')
+def help():
+    return render_template('help.html', title = 'help')
 
 

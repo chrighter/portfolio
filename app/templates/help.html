@@ -1,0 +1,43 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<div class="row">  
+    <div class="col-sm-12"> 
+        <h1>Коротко о принципах работы с галереей.</h1>
+        <ul>
+            <li>
+                <p>
+                    В режиме просмотра можно <strong>переключать картинки</strong> стрелочками.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Чтобы <strong>выйти из режима просмотра</strong>, нужно либо нажать клавишу esc, либо нажать на люую область экрана, либо нажать на кнопку закрыть в режиме просмотра - кому как нравится :)
+                </p>
+            </li>
+        </ul>
+   </div>
+</div>
+
+<footer>
+    <div class="container-fluid">
+        <div class="col-md-6">
+            <h2 class="likes">Обо мне</h2>
+            <p class="simpletext">Я <a href="/about">Кристина</a></p>
+        </div>
+        <div class="col-md-6">
+           <h2 class="likes">Контакты</h2>
+           <p class="simpletext">Если вы хотите связаться со мной по рабочим вопросам или просто написать "Привет", используйте следующие ресурсы:</p>
+            <p>
+                <a href="mailto:christina.ilyenko@yandex.ru" target="_blank"><img src=" {{ url_for('static', filename='mail.ico') }}" alt="@mail"></a> 
+                <a href="https://vk.com/id137560014" target="_blank"> <img src=" {{ url_for('static', filename='vk.ico') }}"  alt="vk.com"> </a> 
+                <a href="https://instagram.com/chrighter" target="_blank"> <img src=" {{ url_for('static', filename='inst.ico') }}" alt="inst.com"> </a>
+            </p>
+        </div>
+        <div class="col-md-12">
+            <p class="simpletext">Designed by Ilyenko Christina &copy;, 2016</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
