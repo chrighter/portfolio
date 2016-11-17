@@ -40,4 +40,8 @@ def pictures(image=None):
 def help():
     return render_template('help.html', title = 'help')
 
+@app.route('/robots.txt')
+def robots():
+    return send_file('robots.txt')    
+
 
