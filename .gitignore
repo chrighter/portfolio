@@ -46,4 +46,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 flask
-*__pycache__*
+__pycache__
+counter.db
