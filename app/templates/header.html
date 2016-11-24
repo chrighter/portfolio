@@ -19,7 +19,8 @@
         {% endblock %}
         <link rel="shortcut icon" href="{{ url_for('static', filename='icon2.ico' )}}"/>
     </head> 
-    <body>        
+    <body>       
+<!--        <div class="container">-->
         <div class="navbar navbar-inverse navbar-fixed-top col-md-12 col-xs-12 col-sm-12">
             <div class="logo-icon">
                 <img src="http://icons.iconarchive.com/icons/jeanette-foshee/simpsons-11/32/Rollover-Mischievous-Bart-1-icon.png" alt="icon">
@@ -28,7 +29,7 @@
                 kek
             </div>
 <!--            <a class="brand" href="#">Портфолио</a>   -->
-            <div class="container">
+<!--            <div class="container">-->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
@@ -50,10 +51,12 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+<!--            </div>-->
         </div>
+<!--             </div>-->
         {% block body %}
         {% endblock %}
+       
         <!-- /container -->
          <!-- Le javascript
         ================================================== -->
