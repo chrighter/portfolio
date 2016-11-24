@@ -2,18 +2,34 @@
     position: absolute;
 }
 
-.intro {
-    background-image: url(bgbig.jpg);
-    background-position: right;
-    width: 100%;
-    background-repeat: no-repeat;
+.visits {
+    position: absolute;
+    padding-left: 30px;
 }
 
+.intro {
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+}
+
+.intro img {
+    height: 100%;
+}
+
+.equal, .equal > div[class*='col-'] {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex:1 0 auto;
+}
 
 .Hello {
     font-family: 'RobotoCondensed';
-    color:crimson; 
-    font-size: 65px;
+    color:deeppink; 
+    font-size: 25px;
+    word-break: break-all;
 }
 
 .modal-title {
@@ -91,9 +107,7 @@
     font-size: 20px;
 }
 
-.introduction {
-    padding: 10%;
-}
+
 
 .ornament {
     padding-left: 30%;

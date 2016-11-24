@@ -11,6 +11,9 @@
                 <div class="modal-body">
                     <img id="viewer" class="img-responsive" src="#" alt="">
                 </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 commentarea"> 
+                    <p>comment</p>
+               </div>
                 <div class="modal-footer">
                     <button type="button" id="closebtn" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                 </div>
@@ -21,7 +24,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
                    <img src="{{ url_for('static', filename='1picthumb.jpg' )}}" id="1thumb" alt="1 thumb" class="decorthumb" onclick="show('1pic.jpg')" data-bigpicture="1">
            </div>
-           <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
+              <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
 <!--                   <a href="#" id="thumbnail" class="thumb">-->
                        <img src="{{ url_for('static', filename='2picthumb.jpg' )}}" id="2thumb" alt="2 thumb" class="decorthumb" onclick="show('2pic.jpg')" data-bigpicture="2">
             </div>
@@ -157,13 +160,23 @@
             };
         </script>
 
+<!--
+        <form action="/html/tags/html_form_tag_action.cfm" method="post">
+            <div>
+            <textarea name="comments" id="comments" style="font-family:sans-serif;font-size:1.2em;">
+            Hey... say something!
+            </textarea>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+-->
 
 
         <footer>
             <div class="container-fluid">
                 <div class="col-md-6">
                     <h2 class="likes">Обо мне</h2>
-                    <p class="simpletext">Я <a href="/about">Кристина</a></p>
+                    <p class="simpletext">Я <a href="/about" style="color: gray">Кристина</a></p>
                 </div>
                 <div class="col-md-6">
                    <h2 class="likes">Контакты</h2>
