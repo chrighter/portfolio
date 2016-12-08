@@ -98,18 +98,18 @@ def after_request(response):
 def visitors():
 	conn = sqlite3.connect('./lol.db')
 	cursor = conn.cursor()
-	cursor.execute("SELECT count(*) FROM visitors")
+	cursor.execute("SELECT count(*) FROM visitors UNION SELECT 0")
 	browsing = cursor.fetchall()[0][0]
-	cursor.execute("SELECT count(*) FROM visitors WHERE day = '%s'" % (str(datetime.now()).split()[0]))
-	browsing_today = cursor.fetchone()[0] or 0
+	cursor.execute("SELECT count(*) FROM visitors WHERE day = '%s' UNION SELECT 0" % (str(datetime.now()).split()[0]))
+	browsing_today = cursor.fetchone()[0]
 	cursor.execute("SELECT * FROM visitors")
 	data = cursor.fetchall()
-	cursor.execute("SELECT date, ip FROM visitors WHERE ip = '%s' GROUP BY ip" % (request.remote_addr))
-	last_visit = cursor.fetchone()[0][:-7] or 0
-	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800" % (request.remote_addr, str(time.time()).split('.')[0]))
-	visits = cursor.fetchone()[0] or 0
-	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800 AND day = '%s'" % (request.remote_addr, str(time.time()).split('.')[0], str(datetime.now()).split()[0]))
-	visits_today = cursor.fetchone()[0] or 0
+	cursor.execute("SELECT date, ip FROM visitors WHERE ip = '%s' GROUP BY ip UNION SELECT 0" % (request.remote_addr))
+	last_visit = cursor.fetchone()[0][:-7]
+	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800 UNION SELECT 0" % (request.remote_addr, str(time.time()).split('.')[0]))
+	visits = cursor.fetchone()[0]
+	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800 AND day = '%s' UNION SELECT 0" % (request.remote_addr, str(time.time()).split('.')[0], str(datetime.now()).split()[0]))
+	visits_today = cursor.fetchone()[0]
 	img = Image(width=700, height=150)
 	with Drawing() as draw:
 		draw.fill_color=Color('black')
