@@ -1,40 +1,43 @@
 {% extends "header.html" %}
 
 {% block body %}
+            <div id="secondfloor"> </div>  
+            <div id="myModal" class="modal modal-lg modal-xs modal-sm modal-md modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <div class="modal-title">Просмотр изображения</div>
+                    </div>
+                    <div class="modal-body">
+                        <img id="viewer" class="img-responsive" src="#" alt="">
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 commentarea"> 
+                        <p>comment</p>
+                   </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closebtn" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="button" value="Update" class="btn btn-default" data-dismiss="modal" onclick="updateURL()">Сделать фоном</button>
+                    </div>
+                </div>
+            </div>
 
-        <div id="myModal" class="modal modal-lg modal-xs modal-sm modal-md modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <div class="modal-title">Просмотр изображения</div>
-                </div>
-                <div class="modal-body">
-                    <img id="viewer" class="img-responsive" src="#" alt="">
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 commentarea"> 
-                    <p>comment</p>
+            <div class="row gallery">  
+                <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
+                       <img src="{{ url_for('static', filename='1picthumb.jpg' )}}" id="1thumb" alt="1 thumb" class="decorthumb" onclick="show('1pic.jpg')" data-bigpicture="1">
                </div>
-                <div class="modal-footer">
-                    <button type="button" id="closebtn" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                  <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
+    <!--                   <a href="#" id="thumbnail" class="thumb">-->
+                           <img src="{{ url_for('static', filename='2picthumb.jpg' )}}" id="2thumb" alt="2 thumb" class="decorthumb" onclick="show('2pic.jpg')" data-bigpicture="2">
                 </div>
-            </div>
-        </div>
-
-        <div class="row gallery">  
-            <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
-                   <img src="{{ url_for('static', filename='1picthumb.jpg' )}}" id="1thumb" alt="1 thumb" class="decorthumb" onclick="show('1pic.jpg')" data-bigpicture="1">
-           </div>
-              <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
-<!--                   <a href="#" id="thumbnail" class="thumb">-->
-                       <img src="{{ url_for('static', filename='2picthumb.jpg' )}}" id="2thumb" alt="2 thumb" class="decorthumb" onclick="show('2pic.jpg')" data-bigpicture="2">
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
-                       <img src="{{ url_for('static', filename='3picthumb.jpg' )}}" id="3thumb" alt="2 thumb" class="decorthumb" onclick="show('3pic.jpg')"  data-bigpicture="3">
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
-                       <img src="{{ url_for('static', filename='4picthumb.jpg' )}}" id="4thumb" alt="2 thumb" class="decorthumb" onclick="show('4pic.jpg')" data-bigpicture="4">
-            </div>   
-         </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
+                           <img src="{{ url_for('static', filename='3picthumb.jpg' )}}" id="3thumb" alt="3 thumb" class="decorthumb" onclick="show('3pic.jpg')"  data-bigpicture="3">
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 myslides"> 
+                           <img src="{{ url_for('static', filename='4picthumb.jpg' )}}" id="4thumb" alt="4 thumb" class="decorthumb" onclick="show('4pic.jpg')" data-bigpicture="4">
+                </div>   
+  
+             </div>
+           
         <script>
             var slideIndex = 1;
 
@@ -101,22 +104,6 @@
                      var modal = document.getElementById('myModal');
                     modal.style.display = "block";
                     document.getElementById("viewer").src = '/static/'+arr[arr.length-1]
-                    
-//                    console.log("MainUrl", MainUrl);
-//                    if(oldUrl.pathname==MainUrl.pathname){
-//                        /*alert(oldUrl.pathname+'|'+MainUrl.pathname+'|'+oldUrl.hash);*/
-//                        return;}
-//                    var a = document.createElement('a');
-//                    var linkText = document.createTextNode("my title text");
-//                    a.appendChild(linkText);
-//                    a.title = "my title text";
-//                    a.href = "/pictures";
-//                    a.id = "oldlink";
-//                    document.body.appendChild(a);
-//                    document.getElementById('oldlink').click();
-//                    console.log(document.getElementById("viewer").src)
-
-//                    show('/static/'+arr[arr.length-1]);
                 }
             
             window.addEventListener("popstate", lalala);
@@ -158,6 +145,60 @@
                     document.getElementById('helpLink').click();
                 }
             };
+
+            window.onload = function() {
+                setBackground();
+            }
+
+            function updateURL() {
+                console.log('kek')
+                var newURL = document.getElementById('viewer').src;
+                setCookie('URL', newURL, 365);
+                console.log('newURL', newURL)
+                document.body.style.background = 'url('+newURL+') repeat';
+                document.getElementById("secondfloor").style.opacity = "0.1";
+                document.getElementById("secondfloor").style.position='fixed';
+                // document.body.style.backgroundAttachment = fixed;
+            }
+
+            function setBackground() {
+              var URL = getCookie('URL');
+              if (URL === undefined)
+                  updateURL()
+              else
+                  document.body.style.background = 'viewer('+URL+') repeat';
+                  // document.body.style.opacity = 0.5;
+                  document.getElementById("secondfloor").style.opacity = "0.1";
+                  document.getElementById("secondfloor").style.position='fixed';
+            }
+
+            function setCookie(c_name, value, exdays) {
+                var exdate=new Date();
+                exdate.setDate(exdate.getDate() + exdays);
+                var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+                document.cookie=c_name + "=" + c_value;
+            }
+
+            function getCookie(c_name) {
+                var c_value = document.cookie;
+                var c_start = c_value.indexOf(" " + c_name + "=");
+
+                if (c_start == -1)
+                    c_start = c_value.indexOf(c_name + "=");
+
+                if (c_start == -1) {
+                    c_value = null;
+                } else {
+                    c_start = c_value.indexOf("=", c_start) + 1;
+                    var c_end = c_value.indexOf(";", c_start);
+
+                    if (c_end == -1)
+                        c_end = c_value.length;
+
+                    c_value = unescape(c_value.substring(c_start,c_end));
+                }
+                return c_value;
+            }
         </script>
 
 <!--
@@ -192,4 +233,5 @@
                 </div>
             </div>
         </footer>
+       
 {% endblock %}

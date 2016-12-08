@@ -47,4 +47,5 @@ Temporary Items
 .apdisk
 flask
 __pycache__
-counter.db
+*.db
+*.pyc

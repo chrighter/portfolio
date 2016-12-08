@@ -1,0 +1,137 @@
+{% extends "header.html" %}
+
+{% block body %}
+        <style>
+            h1, label, input, textarea, p b, .remark {
+                margin-left: 25px;
+            }
+            .remark {
+                font-size: 14px;
+            }
+        </style>
+        <script>
+            function checknick() {
+                var x = new XMLHttpRequest();
+                x.open("GET", "http://127.0.0.1:8080/checknick?name=" + encodeURIComponent(inputnickfield.value))
+                x.onreadystatechange = function() {
+                    if (x.readyState != 4) return
+                        if (x.status == 200) {
+                            checkfieldnick.innerText = x.responseText
+                        }
+                }
+                x.send()
+                // if len(inputnickfield.value) > 50 {
+                //     checkfieldnick.innerText = "Некорректный формат данных, длина ника не может составлять более 50 знаков."
+                // }
+                // else {
+                //     checkfieldnick.innerText =""   
+                // }
+            }
+            // function checkmail() {
+            //     var x = new XMLHttpRequest();
+            //     x.open("GET", "http://127.0.0.1:8080/checkmail?name=" + encodeURIComponent(inputmailfield.value))
+            //     x.onreadystatechange = function() {
+            //         if (x.readyState != 4) return
+            //             if (x.status == 200) {
+            //                 checkfieldmail.innerText = x.responseText
+            //             }
+            //     }
+            //     x.send()
+            // }
+            // function pushdata() {
+            //     var xhr = new XMLHttpRequest();
+            //     var nick = inputnickfield.value
+            //     var mail = inputmailfield.value
+            //     var content = inputcontentfield.value
+            //     var body = 'nick=' + encodeURIComponent(nick) + '&mail=' + encodeURIComponent(mail) + '&content=' + encodeURIComponent(content);
+
+            //     xhr.open("POST", '/pushdata', true)
+            //     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            //     console.log('post')
+            //     xhr.onreadystatechange = function() {
+            //         if (xhr.readyState != 4) return
+            //             if (xhr.status == 200) {
+            //                 postcontent.innerText = xhr.responseText
+            //             }
+            //     }
+            //     xhr.send(body);
+            // }
+        </script>
+        <h1 class="likes">Написать комментарий</h1>
+        <div class="newcomment">
+            <form method="POST">
+                <div>
+                    <label for="inputnickfield">Ваш ник:</label>
+                </div>
+                <div>   
+                    <input type="input" id="inputnickfield" name="nick" class="nick" autocomplete="on" placeholder="nick, лат буквы и цифры" pattern="^[А-Яа-яЁёA-Za-z\s]{1,15}" oninput="checknick()" required>
+                    <p class="remark">Формат: В нике огут быть использованы любые английские и русские буквы, а также пробелы. Его длина может составлять от 1 до 15 знаков.</p>
+                    <!-- <span id="checkfieldnick"></span> -->
+                </div>
+                <br>
+                <br>  
+                <!-- <div>
+                    <label for="inputmailfield">Ваш e-mail:</label>
+                </div> -->  
+                <!-- <div>
+                    <input type="email" id="inputmailfield" class="mail" autocomplete="on" placeholder="Адрес эл. почты" oninput="checkmail()" pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$" required>
+                    <span id="checkfieldmail"></span>
+                </div> -->
+                <br>
+                <br>  
+                <div>
+                    <label for="content">Содержание:</label>
+                </div>
+                <div>   
+                    <textarea rows="10" cols="50" id="inputcontentfield" name="content" pattern="{1,500}$" placeholder="Введите здесь комментарий. Будьте внимательны и вежливы!"></textarea>
+                </div>
+                <br>
+                <br>  
+                <div>
+                    <input type="submit" class="btn btn-default" data-dismiss="modal" value="Добавить">
+                </div>  
+            </form>
+            <br>
+            <p><b>Вернуться к просмотру <a href="/comments" style="color: gray">комментариев</a></b></p>
+        </div>
+
+        <!-- <form name="comment" action="comment.php" method="post">
+          <p>
+            <label>Имя:</label>
+            <input type="text" name="name"/>
+          </p>
+          <p>
+            <label>Комментарий:</label>
+            <br />
+            <textarea name="text_comment" cols="30" rows="10"></textarea>
+          </p>
+          <p>
+            <input type="hidden" name="page_id" value="150" />
+            <input type="submit" value="Отправить" />
+          </p>
+        </form>    -->     
+
+
+        <footer>
+            <div class="container-fluid">
+                <div class="col-md-6">
+                    <h2 class="likes">Обо мне</h2>
+                    <p class="simpletext">Я <a href="/about" style="color: gray">Кристина</a></p>
+                </div>
+                <div class="col-md-6">
+                   <h2 class="likes">Контакты</h2>
+                    <p class="simpletext">Если вы хотите связаться со мной по рабочим вопросам или просто написать "Привет", используйте следующие ресурсы:</p>
+                    <p>
+                        <a href="mailto:christina.ilyenko@yandex.ru" target="_blank"><img src=" {{ url_for('static', filename='mail.ico') }}" alt="@mail"></a> 
+                        <a href="https://vk.com/id137560014" target="_blank"> <img src=" {{ url_for('static', filename='vk.ico') }}"  alt="vk.com"> </a> 
+                        <a href="https://instagram.com/chrighter" target="_blank"> <img src=" {{ url_for('static', filename='inst.ico') }}" alt="inst.com"> </a>
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <p class="simpletext">Designed by Ilyenko Christina &copy;, 2016</p>
+                </div>
+            </div>
+        </footer>
+{% endblock %}
+
+

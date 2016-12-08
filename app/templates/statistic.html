@@ -1,0 +1,66 @@
+{% extends "header.html" %}
+
+{% block body %}
+        <style>
+            table, h1, p {
+                margin-left: 25px;
+            }
+            td {
+                padding: 0.5%;
+            }
+            th {
+                text-align: center;
+            }
+        </style>
+        <h1 class="likes">Статистика</h1>
+        <!-- <p>Всего просмотров: {{browsing[0][0]}}</p>
+        <p>Всего просмотров сегодня: {{ browsing_today[0] }}</p>
+        <p>Всего посещений: {{ visits[0] }}</p>
+        <p>Всего посещений сегодня: {{ visits_today[0] }}</p>
+        <p>Дата последнего посещения: {{ last_visit[0] }}</p> -->
+        <img src='/visitors' vertical-align="left">
+        <p>count: {{ count_visit[0] }}</p>
+<!--        <p>blocked</p>-->
+        <table border='1'>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>IP address</th>
+                <th>User-agent</th>
+                <th>Actions</th>
+            </tr>
+            {% for el in data %}
+                <tr>
+                    <td>{{ el[1][:10] }}</td>
+                    <td>{{ el[1][11:] }}</td>
+                    <td>{{ el[0] }}</td>
+                    <td>{{ el[3] }}</td>
+                    <td>{{ el[2] }}</td>
+                </tr>
+                
+            {% endfor %}
+        </table>
+        
+        <footer>
+            <div class="container-fluid">
+                <div class="col-md-6">
+                    <h2 class="likes">Обо мне</h2>
+                    <p class="simpletext">Я <a href="/about" style="color: gray">Кристина</a></p>
+                </div>
+                <div class="col-md-6">
+                   <h2 class="likes">Контакты</h2>
+                    <p class="simpletext">Если вы хотите связаться со мной по рабочим вопросам или просто написать "Привет", используйте следующие ресурсы:</p>
+                    <p>
+                        <a href="mailto:christina.ilyenko@yandex.ru" target="_blank"><img src=" {{ url_for('static', filename='mail.ico') }}" alt="@mail"></a> 
+                        <a href="https://vk.com/id137560014" target="_blank"> <img src=" {{ url_for('static', filename='vk.ico') }}"  alt="vk.com"> </a> 
+                        <a href="https://instagram.com/chrighter" target="_blank"> <img src=" {{ url_for('static', filename='inst.ico') }}" alt="inst.com"> </a>
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <p class="simpletext">Designed by Ilyenko Christina &copy;, 2016</p>
+                </div>
+            </div>
+        </footer>
+{% endblock %}
+
+
