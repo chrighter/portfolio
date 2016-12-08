@@ -73,7 +73,7 @@ def after_request(response):
 		request_ip_in_munute = cursor.fetchone()
 		print('minute', request_ip_in_munute)
 		print('kek', str(time.time()).split('.')[0])
-		if request_ip_in_munute[0] > 50:
+		if request_ip_in_munute[0] > 100:
 			 d[request_ip_in_munute[1]] = int(time.time())
 		print('d', d)	 
 		print('time', time.time())
@@ -98,17 +98,19 @@ def after_request(response):
 def visitors():
 	conn = sqlite3.connect('./lol.db')
 	cursor = conn.cursor()
-	cursor.execute("SELECT count(*) FROM visitors UNION SELECT 0")
-	browsing = cursor.fetchall()[0][0]
-	cursor.execute("SELECT count(*) FROM visitors WHERE day = '%s' UNION SELECT 0" % (str(datetime.now()).split()[0]))
+	cursor.execute("SELECT count(*) FROM visitors")
+	browsing = cursor.fetchone()[0]
+	cursor.execute("SELECT count(*) FROM visitors WHERE day = '%s'" % (str(datetime.now()).split()[0]))
 	browsing_today = cursor.fetchone()[0]
-	cursor.execute("SELECT * FROM visitors")
-	data = cursor.fetchall()
-	cursor.execute("SELECT date, ip FROM visitors WHERE ip = '%s' GROUP BY ip UNION SELECT 0" % (request.remote_addr))
-	last_visit = cursor.fetchone()[0][:-7]
-	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800 UNION SELECT 0" % (request.remote_addr, str(time.time()).split('.')[0]))
+	cursor.execute("SELECT date, ip FROM visitors WHERE ip = '%s' GROUP BY ip" % (request.remote_addr))
+	last_visit = cursor.fetchone()
+	if not last_visit:
+		last_visit = "Чуть-чуть не считается (0)"
+	else:
+		last_visit = last_visit[0][:-7] 	
+	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '{0}' AND {1} - time > 1800".format(request.remote_addr, time.time()))
 	visits = cursor.fetchone()[0]
-	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800 AND day = '%s' UNION SELECT 0" % (request.remote_addr, str(time.time()).split('.')[0], str(datetime.now()).split()[0]))
+	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '{0}' AND {1} - time > 1800 AND day = {2}".format(request.remote_addr, time.time(), str(datetime.now()).split()[0]))
 	visits_today = cursor.fetchone()[0]
 	img = Image(width=700, height=150)
 	with Drawing() as draw:
@@ -131,23 +133,11 @@ def visitors():
 def statistic():
 	conn = sqlite3.connect('./lol.db')
 	cursor = conn.cursor()
-	cursor.execute("SELECT count(*) FROM visitors")
-	browsing = cursor.fetchall()
-	cursor.execute("SELECT count(*) FROM visitors WHERE day = '%s'" % (str(datetime.now()).split()[0]))
-	browsing_today = cursor.fetchone()
+	
 	cursor.execute("SELECT * FROM visitors")
 	data = cursor.fetchall()
-	cursor.execute("SELECT date, ip FROM visitors WHERE ip = '%s' GROUP BY ip" % (request.remote_addr))
-	last_visit = cursor.fetchone()
-	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800" % (request.remote_addr, str(time.time()).split('.')[0]))
-	visits = cursor.fetchone()
-	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800 AND day = '%s'" % (request.remote_addr, str(time.time()).split('.')[0], str(datetime.now()).split()[0]))
-	visits_today = cursor.fetchone()
-	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' < 60"% (request.remote_addr, str(time.time()).split('.')[0]))
-	count_visit = cursor.fetchone()
-#	if blocked = True:
-#		blocked = 'За подозрительную активность со стороны Вашего аккаунта Вы заблокированы на некоторое время'
-	return render_template('statistic.html', browsing = browsing, data = data, last_visit = last_visit, browsing_today=browsing_today, visits=visits, visits_today=visits_today, count_visit=count_visit)
+	
+	return render_template('statistic.html', data = data)
 
 @app.route('/comment', methods=['POST', 'GET'])
 def comment():
@@ -187,41 +177,41 @@ def ch():
 	return data 
 
 
-conn = sqlite3.connect('comments.db')
-users = dict()
-data = ''
-@app.route('/pushdata', methods=['POST', 'GET'])
-def push():
-	# print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-	# print('request.POST.content', request.POST["content"]) 
-	# if request.POST["nick"] and request.POST["mail"] and request.POST["content"]:
-	# 	cursor = conn.cursor()
-	# 	if (not (request.POST.nick in users) and not(request.POST.nick in stopwords)) and not(request.POST.mail in users.values()) and (re.match(r"[A-Za-z\d]{1,50}$", request.POST.nick)) and (re.match(r"^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$", request.POST.mail)):
-	# 		users[request.POST.nick] = request.POST.mail
-	# 		cursor.execute("INSERT INTO users (nick, mail) VALUES (?, ?)", (request.POST.nick, request.POST.mail))
-	# 		conn.commit()
-	# 		data = "Поздравляем с успешной регистрацией"
-	# 	else:
-	# 		if request.POST.nick == "Serezha" or request.POST.nick == "serezha":
-	# 			data = "Сережка иди нафиг"
-	# 		elif request.POST.nick == "Misha" or request.POST.nick == "misha":
-	# 			data = "Миша ухади"	
-	# 		elif request.POST.nick in users:
-	# 			data = "Пользователь с таким ником уже существует"
-	# 		elif request.POST.mail in users.values():
-	# 			data = "Пользователь с таким же адресом электронной почты уже существует"	
-	# 		elif request.POST.nick == "admin" or request.POST.nick == "administrator":
-	# 			data = "Недопустимый ник"
-	# 		elif not re.match(r"[A-Za-z\d]{1,50}$", request.POST.nick):
-	# 			data = "Содержимое поля 'Ник' содержит недопустимые символы"
-	# 		elif not re.match(r"^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$", request.POST.mail):
-	# 			data = "Содержимое поля 'E-mail' содержит недопустимые символы"		
-	# 		else:
-	# 			data = 'kek'		
-	# else:
-	# 	data = "Ошибка. Не переживайте, это случается и с лучшими из нас"
-	# return data
-	name=request.form['nick']
-	content=request.form['content']
-	print("content", content)
-	return "content"
+# conn = sqlite3.connect('comments.db')
+# users = dict()
+# data = ''
+# @app.route('/pushdata', methods=['POST', 'GET'])
+# def push():
+# 	# print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+# 	# print('request.POST.content', request.POST["content"]) 
+# 	# if request.POST["nick"] and request.POST["mail"] and request.POST["content"]:
+# 	# 	cursor = conn.cursor()
+# 	# 	if (not (request.POST.nick in users) and not(request.POST.nick in stopwords)) and not(request.POST.mail in users.values()) and (re.match(r"[A-Za-z\d]{1,50}$", request.POST.nick)) and (re.match(r"^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$", request.POST.mail)):
+# 	# 		users[request.POST.nick] = request.POST.mail
+# 	# 		cursor.execute("INSERT INTO users (nick, mail) VALUES (?, ?)", (request.POST.nick, request.POST.mail))
+# 	# 		conn.commit()
+# 	# 		data = "Поздравляем с успешной регистрацией"
+# 	# 	else:
+# 	# 		if request.POST.nick == "Serezha" or request.POST.nick == "serezha":
+# 	# 			data = "Сережка иди нафиг"
+# 	# 		elif request.POST.nick == "Misha" or request.POST.nick == "misha":
+# 	# 			data = "Миша ухади"	
+# 	# 		elif request.POST.nick in users:
+# 	# 			data = "Пользователь с таким ником уже существует"
+# 	# 		elif request.POST.mail in users.values():
+# 	# 			data = "Пользователь с таким же адресом электронной почты уже существует"	
+# 	# 		elif request.POST.nick == "admin" or request.POST.nick == "administrator":
+# 	# 			data = "Недопустимый ник"
+# 	# 		elif not re.match(r"[A-Za-z\d]{1,50}$", request.POST.nick):
+# 	# 			data = "Содержимое поля 'Ник' содержит недопустимые символы"
+# 	# 		elif not re.match(r"^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$", request.POST.mail):
+# 	# 			data = "Содержимое поля 'E-mail' содержит недопустимые символы"		
+# 	# 		else:
+# 	# 			data = 'kek'		
+# 	# else:
+# 	# 	data = "Ошибка. Не переживайте, это случается и с лучшими из нас"
+# 	# return data
+# 	name=request.form['nick']
+# 	content=request.form['content']
+# 	print("content", content)
+# 	return "content"
