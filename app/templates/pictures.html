@@ -155,8 +155,9 @@
                 var newURL = document.getElementById('viewer').src;
                 setCookie('URL', newURL, 365);
                 console.log('newURL', newURL)
-                document.body.style.background = 'url('+newURL+') repeat';
-                document.getElementById("secondfloor").style.opacity = "0.1";
+                // document.body.style.background = 'url('+newURL+') repeat';
+                document.getElementById("secondfloor").style.background = 'url('+newURL+') repeat';
+                document.getElementById("secondfloor").style.opacity = "0.3";
                 document.getElementById("secondfloor").style.position='fixed';
                 // document.body.style.backgroundAttachment = fixed;
             }
@@ -165,11 +166,16 @@
               var URL = getCookie('URL');
               if (URL === undefined)
                   updateURL()
-              else
-                  document.body.style.background = 'viewer('+URL+') repeat';
+              else {
+                    updateURL()
+                    // document.getElementById("secondfloor").style.background = 'viewer('+URL+') repeat';
+                    // document.getElementById("secondfloor").style.opacity = "0.3";
+                    // document.getElementById("secondfloor").style.position='fixed';
                   // document.body.style.opacity = 0.5;
-                  document.getElementById("secondfloor").style.opacity = "0.1";
-                  document.getElementById("secondfloor").style.position='fixed';
+                  //document.getElementById("secondfloor").style.opacity = "0.1";
+                  //document.getElementById("secondfloor").style.position='fixed';
+              }
+                  
             }
 
             function setCookie(c_name, value, exdays) {
