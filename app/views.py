@@ -99,27 +99,26 @@ def visitors():
 	conn = sqlite3.connect('./lol.db')
 	cursor = conn.cursor()
 	cursor.execute("SELECT count(*) FROM visitors")
-	browsing = cursor.fetchall()
+	browsing = cursor.fetchall()[0][0]
 	cursor.execute("SELECT count(*) FROM visitors WHERE day = '%s'" % (str(datetime.now()).split()[0]))
-	browsing_today = cursor.fetchone()
+	browsing_today = cursor.fetchone()[0] or 0
 	cursor.execute("SELECT * FROM visitors")
 	data = cursor.fetchall()
 	cursor.execute("SELECT date, ip FROM visitors WHERE ip = '%s' GROUP BY ip" % (request.remote_addr))
-	last_visit = cursor.fetchone()
+	last_visit = cursor.fetchone()[0][:-7] or 0
 	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800" % (request.remote_addr, str(time.time()).split('.')[0]))
-	visits = cursor.fetchone()
+	visits = cursor.fetchone()[0] or 0
 	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '%s' AND time - '%s' > 1800 AND day = '%s'" % (request.remote_addr, str(time.time()).split('.')[0], str(datetime.now()).split()[0]))
-	visits_today = cursor.fetchone()
+	visits_today = cursor.fetchone()[0] or 0
 	img = Image(width=700, height=150)
 	with Drawing() as draw:
 		draw.fill_color=Color('black')
-		# draw.text_alignment= 'left'
 		draw.font_size=14
-		draw.text(30,25, 'Всего просмотров: '+str(browsing[0][0]))
-		draw.text(30,50, 'Всего просмотров сегодня: '+str(browsing_today[0]))
-		draw.text(30,75, 'Всего посещений: '+str(visits[0]))
-		draw.text(30,100, 'Всего посещений сегодня: '+str(visits_today[0]))
-		draw.text(30,125, 'Дата последнего посещения: '+str(last_visit[0][:-7]))
+		draw.text(30,25, 'Всего просмотров: '+str(browsing))
+		draw.text(30,50, 'Всего просмотров сегодня: '+str(browsing_today))
+		draw.text(30,75, 'Всего посещений: '+str(visits))
+		draw.text(30,100, 'Всего посещений сегодня: '+str(visits_today))
+		draw.text(30,125, 'Дата последнего посещения: '+str(last_visit))
 		draw(img)
 	buffer = BytesIO()
 	with img.convert('png') as converted:
