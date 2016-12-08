@@ -19,7 +19,7 @@
 #		 title = 'Home',
 #		 user = user)
 
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, send_file, redirect
+from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, send_file, redirect, make_response
 from app import app
 from datetime import datetime
 from contextlib import closing
@@ -30,6 +30,7 @@ from wand.drawing import Drawing
 from wand.color import Color
 from io import BytesIO
 import time
+from functools import wraps, update_wrapper
 #from sqlite3 import strftime
 #import nocache
 
@@ -73,12 +74,12 @@ def after_request(response):
 		request_ip_in_munute = cursor.fetchone()
 		print('minute', request_ip_in_munute)
 		print('kek', str(time.time()).split('.')[0])
-		if request_ip_in_munute[0] > 100:
+		if request_ip_in_munute[0] > 200:
 			 d[request_ip_in_munute[1]] = int(time.time())
 		print('d', d)	 
 		print('time', time.time())
 		if request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d:
-			
+
 			cursor.execute("INSERT INTO visitors VALUES (?,?,?,?,?,?)", (request.remote_addr, datetime.now(), request.path, request.user_agent.string, str(datetime.now()).split()[0], str(time.time()).split('.')[0]))
 			conn.commit()
 			conn.close()
@@ -92,10 +93,24 @@ def after_request(response):
 		conn.close()		
 	return response
 
+def nocache(view):
+    @wraps(view)
+    def no_cache(*args, **kwargs):
+        response = make_response(view(*args, **kwargs))
+        response.headers['Last-Modified'] = datetime.now()
+        response.headers['Cache-Control'] = (
+            'no-store, no-cache, must-revalidate, ' +
+            'post-check=0, pre-check=0, max-age=0'
+        )
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '-1'
+        return response
+ 
+    return update_wrapper(no_cache, view)
 
 
-#conn = sqlite3.connect('./count.db')
 @app.route('/visitors')
+@nocache
 def visitors():
 	conn = sqlite3.connect('./lol.db')
 	cursor = conn.cursor()
