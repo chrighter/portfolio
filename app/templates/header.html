@@ -24,6 +24,16 @@
         {% endblock %}
         <link rel="shortcut icon" href="{{ url_for('static', filename='icon2.ico' )}}"/>
     </head> 
+   <!--  <script>
+        // document.getElementsByClassName('navbar-toggle').focusout(function(){
+        //     document.getElementsByClassName(".navbar-collapse").collapse('hide');
+        // });
+        $(document).on('click', '.navbar-collapse', function (e) {
+    if ($(e.target).is('a')) {
+        $(this).collapse('hide');
+    }
+});
+    </script> -->
     <body>       
 <!--        <div class="container">-->
         <div class="navbar navbar-inverse navbar-fixed-top col-md-12 col-xs-12 col-sm-12">

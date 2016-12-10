@@ -28,23 +28,27 @@
             }
 
         </style> 
+        <div class="col-sm-12 col-md-12 col-lg-12 ">
         <h1 class="likes">Комментарии</h1>
         <br>
         <p><b>Написать свой <a href="/comment" style="color: gray">комментарий</a></b></p>
         <br>
         <p><b>Предыдущие комментарии</b></p>
-        <ul style="list-style-type:square">
-            
-                {% for el in data %}
-                <li class="commentsli">
-                    <b>Автор: </b> {{ el[0] }}
-                    <b>Комментарий: </b> {{ el[1] }}
-                    <b>Дата: </b> {{ el[2] }}
-                </li>  
-                <br>  
-                {% endfor %}
-            
-        </ul>
+        
+
+            <ul style="list-style-type:square">
+                
+                    {% for el in data %}
+                    <li class="commentsli">
+                        <b>Автор: </b> {{ el[0] }}
+                        <b>Комментарий: </b> {{ el[1] }}
+                        <b>Дата: </b> {{ el[2] }}
+                    </li>  
+                    <br>  
+                    {% endfor %}
+                
+            </ul>
+        </div>    
         <br>
         
             
