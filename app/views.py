@@ -67,6 +67,7 @@ def robots():
 d = dict()	 
 @app.after_request
 def after_request(response):
+	badaddresses = ['/badbook', '/static/mystyles.css', '/static/RobotoCondensed.ttf', '/static/mail.ico', '/static/vk.ico', '/static/inst.ico', '/static/icon2.ico', '/static/loadgif.gif','/static/bg1.jpg', '/favicon.ico', '/pictures/2pic.jpg', '/pictures/1pic.jpg', '/pictures/3pic.jpg', '/pictures/4pic.jpg', '/static/1picthumb.jpg', '/static/2picthumb.jpg', '/static/3picthumb.jpg', '/static/4picthumb.jpg']
 	conn = sqlite3.connect('./lol.db')
 	cursor = conn.cursor()
 	try:
@@ -77,7 +78,7 @@ def after_request(response):
 		if request_ip_in_munute[0] > 200:
 			 d[request_ip_in_munute[1]] = int(time.time())
 
-		if (request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d) and (request.path != '/badbook'):
+		if (request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d) and not(request.path in badaddresses):
 
 			cursor.execute("INSERT INTO visitors VALUES (?,?,?,?,?,?)", (request.remote_addr, datetime.now(), request.path, request.user_agent.string, str(datetime.now()).split()[0], str(time.time()).split('.')[0]))
 			conn.commit()
