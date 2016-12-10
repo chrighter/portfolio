@@ -73,12 +73,11 @@ def after_request(response):
 	try:
 		cursor.execute("SELECT count(*) date, ip FROM visitors WHERE time - '{0}' < 60 and day = '{1}' GROUP BY ip".format( int(time.time()), str(datetime.now()).split()[0]))
 		request_ip_in_munute = cursor.fetchone()
-		print('request.path', request.path)
-		print(type(request.path))
+
 		if request_ip_in_munute[0] > 200:
 			 d[request_ip_in_munute[1]] = int(time.time())
 
-		if (request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d) and not(request.path in badaddresses):
+		if (request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d) and not(request.path in badaddresses) and re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$', request.user_agent.string):
 
 			cursor.execute("INSERT INTO visitors VALUES (?,?,?,?,?,?)", (request.remote_addr, datetime.now(), request.path, request.user_agent.string, str(datetime.now()).split()[0], str(time.time()).split('.')[0]))
 			conn.commit()
@@ -150,7 +149,7 @@ def statistic():
 	conn = sqlite3.connect('./lol.db')
 	cursor = conn.cursor()
 	
-	cursor.execute("SELECT * FROM visitors")
+	cursor.execute("SELECT * FROM visitors ORDER BY date DESC")
 	data = cursor.fetchall()
 	
 	return render_template('statistic.html', data = data)
