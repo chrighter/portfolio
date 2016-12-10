@@ -11,28 +11,38 @@
             th {
                 text-align: center;
             }
+            .date, .time, .ip, .actions {
+                width: 10%;
+                word-break: break-all;
+            }
+            .agent {
+                width: 60%;
+                word-break: break-all;
+            }
         </style>
         <h1 class="likes">Статистика</h1>
         <img src='/visitors' vertical-align="left" alt="Статистика в картинке">
-        <table border='1'>
-            <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>IP address</th>
-                <th>User-agent</th>
-                <th>Actions</th>
-            </tr>
-            {% for el in data %}
+        <div class="table-responsive">
+            <table class="table" border='1'>
                 <tr>
-                    <td>{{ el[1][:10] }}</td>
-                    <td>{{ el[1][11:] }}</td>
-                    <td>{{ el[0] }}</td>
-                    <td>{{ el[3] }}</td>
-                    <td>{{ el[2] }}</td>
+                    <th class="date">Date</th>
+                    <th class="time">Time</th>
+                    <th  class="ip">IP address</th>
+                    <th class="agent">User-agent</th>
+                    <th class="actions">Actions</th>
                 </tr>
-                
-            {% endfor %}
-        </table>
+                {% for el in data %}
+                    <tr>
+                        <td class="date">{{ el[1][:10] }}</td>
+                        <td class="time">{{ el[1][11:] }}</td>
+                        <td class="ip">{{ el[0] }}</td>
+                        <td class="agent">{{ el[3] }}</td>
+                        <td class="actions">{{ el[2] }}</td>
+                    </tr>
+                    
+                {% endfor %}
+            </table>
+        </div>    
         
         <footer>
             <div class="container-fluid">
