@@ -72,13 +72,12 @@ def after_request(response):
 	try:
 		cursor.execute("SELECT count(*) date, ip FROM visitors WHERE time - '{0}' < 60 and day = '{1}' GROUP BY ip".format( int(time.time()), str(datetime.now()).split()[0]))
 		request_ip_in_munute = cursor.fetchone()
-		print('minute', request_ip_in_munute)
-		print('kek', str(time.time()).split('.')[0])
+		print('request.path', request.path)
+		print(type(request.path))
 		if request_ip_in_munute[0] > 200:
 			 d[request_ip_in_munute[1]] = int(time.time())
-		print('d', d)	 
-		print('time', time.time())
-		if request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d:
+
+		if (request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d) and (request.path != '/badbook'):
 
 			cursor.execute("INSERT INTO visitors VALUES (?,?,?,?,?,?)", (request.remote_addr, datetime.now(), request.path, request.user_agent.string, str(datetime.now()).split()[0], str(time.time()).split('.')[0]))
 			conn.commit()
@@ -194,7 +193,9 @@ def ch():
 		data = "Некорректный формат данных, длина ника не может составлять более 50 знаков."
 	return data 
 
-
+@app.route('/badbook')
+def badbook():
+	return render_template('badbook.html')
 # conn = sqlite3.connect('comments.db')
 # users = dict()
 # data = ''
