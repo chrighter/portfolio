@@ -77,7 +77,7 @@ def after_request(response):
 		if request_ip_in_munute[0] > 200:
 			 d[request_ip_in_munute[1]] = int(time.time())
 
-		if (request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d) and not(request.path in badaddresses) and re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$', request.user_agent.string):
+		if (request_ip_in_munute[1] in d and time.time() - d[request_ip_in_munute[1]] > 30 or request_ip_in_munute[1] not in d) and not(request.path in badaddresses) and re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!;\/\.*\s).*$', request.user_agent.string):
 
 			cursor.execute("INSERT INTO visitors VALUES (?,?,?,?,?,?)", (request.remote_addr, datetime.now(), request.path, request.user_agent.string, str(datetime.now()).split()[0], str(time.time()).split('.')[0]))
 			conn.commit()
