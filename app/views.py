@@ -158,14 +158,16 @@ def statistic():
 @app.route('/comment', methods=['POST', 'GET'])
 def comment():
 	if request.method == "POST":
-		print(request.form["nick"], request.form["content"])
+		# print(request.form["nick"], request.form["content"])
 		# print(request.form["nick"], request.form["mail"], request.form["content"])
-		# валидация 
+		# валидация
+		date = datetime.now()
 		conn = sqlite3.connect('./comment.db')
 		cursor = conn.cursor()
-		cursor.execute("INSERT INTO comment VALUES (?,?,?)", (request.form["nick"], request.form["content"], str(datetime.now()).split()[0]))
-		conn.commit()
-		conn.close()
+		if not request.form[botcheck]:
+			cursor.execute("INSERT INTO comment VALUES (?,?,?)", (request.form["nick"], request.form["content"], str(datetime.now()).split()[0]))
+			conn.commit()
+			conn.close()
 		return redirect("/comments")
 	else:	
 		return render_template('comment.html', title = 'comment')

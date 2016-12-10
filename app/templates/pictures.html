@@ -11,9 +11,7 @@
                     <div class="modal-body">
                         <img id="viewer" class="img-responsive" src="#" alt="">
                     </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 commentarea"> 
-                        <p>comment</p>
-                   </div>
+                    <button type="button" value="Update" class="btn btn-default" data-dismiss="modal" onclick="updateURL()">Лайк</button>
                     <div class="modal-footer">
                         <button type="button" id="closebtn" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                         <button type="button" value="Update" class="btn btn-default" data-dismiss="modal" onclick="updateURL()">Сделать фоном</button>
@@ -168,9 +166,9 @@
                   updateURL()
               else {
                     updateURL()
-                    // document.getElementById("secondfloor").style.background = 'viewer('+URL+') repeat';
-                    // document.getElementById("secondfloor").style.opacity = "0.3";
-                    // document.getElementById("secondfloor").style.position='fixed';
+                    document.getElementById("secondfloor").style.background = 'viewer('+URL+') repeat';
+                    document.getElementById("secondfloor").style.opacity = "0.3";
+                    document.getElementById("secondfloor").style.position='fixed';
                   // document.body.style.opacity = 0.5;
                   //document.getElementById("secondfloor").style.opacity = "0.1";
                   //document.getElementById("secondfloor").style.position='fixed';
@@ -205,6 +203,7 @@
                 }
                 return c_value;
             }
+  
         </script>
 
 <!--

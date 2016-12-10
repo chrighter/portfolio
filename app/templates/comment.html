@@ -65,7 +65,7 @@
                 </div>
                 <div>   
                     <input type="input" id="inputnickfield" name="nick" class="nick" autocomplete="on" placeholder="nick, лат буквы и цифры" pattern="^[А-Яа-яЁёA-Za-z\s]{1,15}" oninput="checknick()" required>
-                    <p class="remark">Формат: В нике огут быть использованы любые английские и русские буквы, а также пробелы. Его длина может составлять от 1 до 15 знаков.</p>
+                    <p class="remark">Формат: В нике могут быть использованы любые английские и русские буквы, а также пробелы. Его длина может составлять от 1 до 15 знаков.</p>
                     <!-- <span id="checkfieldnick"></span> -->
                 </div>
                 <br>
@@ -86,10 +86,13 @@
                     <textarea rows="10" cols="50" id="inputcontentfield" name="content" pattern="{1,500}$" placeholder="Введите здесь комментарий. Будьте внимательны и вежливы!"></textarea>
                 </div>
                 <br>
-                <br>  
+                <br> 
+                <div class="botcheck">
+                    <input type="input" style="display: none" name="botcheck">
+                </div>
                 <div>
                     <input type="submit" class="btn btn-default" data-dismiss="modal" value="Добавить">
-                </div>  
+                </div> 
             </form>
             <br>
             <p><b>Вернуться к просмотру <a href="/comments" style="color: gray">комментариев</a></b></p>
