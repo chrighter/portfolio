@@ -196,41 +196,32 @@ def ch():
 @app.route('/badbook')
 def badbook():
 	return render_template('badbook.html')
-# conn = sqlite3.connect('comments.db')
-# users = dict()
-# data = ''
-# @app.route('/pushdata', methods=['POST', 'GET'])
-# def push():
-# 	# print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-# 	# print('request.POST.content', request.POST["content"]) 
-# 	# if request.POST["nick"] and request.POST["mail"] and request.POST["content"]:
-# 	# 	cursor = conn.cursor()
-# 	# 	if (not (request.POST.nick in users) and not(request.POST.nick in stopwords)) and not(request.POST.mail in users.values()) and (re.match(r"[A-Za-z\d]{1,50}$", request.POST.nick)) and (re.match(r"^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$", request.POST.mail)):
-# 	# 		users[request.POST.nick] = request.POST.mail
-# 	# 		cursor.execute("INSERT INTO users (nick, mail) VALUES (?, ?)", (request.POST.nick, request.POST.mail))
-# 	# 		conn.commit()
-# 	# 		data = "Поздравляем с успешной регистрацией"
-# 	# 	else:
-# 	# 		if request.POST.nick == "Serezha" or request.POST.nick == "serezha":
-# 	# 			data = "Сережка иди нафиг"
-# 	# 		elif request.POST.nick == "Misha" or request.POST.nick == "misha":
-# 	# 			data = "Миша ухади"	
-# 	# 		elif request.POST.nick in users:
-# 	# 			data = "Пользователь с таким ником уже существует"
-# 	# 		elif request.POST.mail in users.values():
-# 	# 			data = "Пользователь с таким же адресом электронной почты уже существует"	
-# 	# 		elif request.POST.nick == "admin" or request.POST.nick == "administrator":
-# 	# 			data = "Недопустимый ник"
-# 	# 		elif not re.match(r"[A-Za-z\d]{1,50}$", request.POST.nick):
-# 	# 			data = "Содержимое поля 'Ник' содержит недопустимые символы"
-# 	# 		elif not re.match(r"^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$", request.POST.mail):
-# 	# 			data = "Содержимое поля 'E-mail' содержит недопустимые символы"		
-# 	# 		else:
-# 	# 			data = 'kek'		
-# 	# else:
-# 	# 	data = "Ошибка. Не переживайте, это случается и с лучшими из нас"
-# 	# return data
-# 	name=request.form['nick']
-# 	content=request.form['content']
-# 	print("content", content)
-# 	return "content"
+
+conn = sqlite3.connect('./likes.db')
+@app.route('/like', methods=['POST', 'GET'])
+def like():
+	if request.method == "POST":
+		cursor = conn.cursor()
+		cursor.execute("SELECT count FROM likes WHERE id = ?", (request.form["id"], ))
+		result = cursor.fetchone()
+		if not result:
+			count = 1
+			cursor.execute("INSERT INTO likes VALUES (?, ?)", (request.form["id"], 1))
+		else:	
+			count = result[0] + 1
+			cursor.execute("DELETE FROM likes WHERE id = ?", (request.form["id"], ))
+			cursor.execute("INSERT INTO likes VALUES (?, ?)", (request.form["id"], count))
+		conn.commit()
+		return str(count)
+	else:
+		cursor = conn.cursor()
+		id = request.args.get("id", "").strip()
+		cursor.execute("SELECT count FROM likes WHERE id = ?", (id, ))
+		result = cursor.fetchone()
+		if not result:
+			count = 0
+		else:
+			count = result[0]
+		conn.commit()
+		return str(count)
+			
