@@ -204,6 +204,7 @@ def like():
 		cursor = conn.cursor()
 		cursor.execute("SELECT count FROM likes WHERE id = ?", (request.form["id"], ))
 		result = cursor.fetchone()
+		print("post id", request.form["id"])
 		if not result:
 			count = 1
 			cursor.execute("INSERT INTO likes VALUES (?, ?)", (request.form["id"], 1))
@@ -216,6 +217,7 @@ def like():
 	else:
 		cursor = conn.cursor()
 		id = request.args.get("id", "").strip()
+		print("ID",id)
 		cursor.execute("SELECT count FROM likes WHERE id = ?", (id, ))
 		result = cursor.fetchone()
 		if not result:
