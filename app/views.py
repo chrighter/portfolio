@@ -67,7 +67,7 @@ def robots():
 d = dict()	 
 @app.after_request
 def after_request(response):
-	badaddresses = ['/badbook', '/static/mystyles.css', '/static/RobotoCondensed.ttf', '/static/mail.ico', '/static/vk.ico', '/static/inst.ico', '/static/icon2.ico', '/static/loadgif.gif','/static/bg1.jpg', '/favicon.ico', '/pictures/2pic.jpg', '/pictures/1pic.jpg', '/pictures/3pic.jpg', '/pictures/4pic.jpg', '/static/1picthumb.jpg', '/static/2picthumb.jpg', '/static/3picthumb.jpg', '/static/4picthumb.jpg']
+	badaddresses = ['/badbook', '/static/mystyles.css', '/static/RobotoCondensed.ttf', '/static/mail.ico', '/like', '/static/RobotoCondensed.ttf', '/static/vk.ico', '/static/inst.ico', '/static/icon2.ico', '/static/loadgif.gif','/static/bg1.jpg', '/favicon.ico', '/pictures/2pic.jpg', '/pictures/1pic.jpg', '/pictures/3pic.jpg', '/pictures/4pic.jpg', '/static/1picthumb.jpg', '/static/2picthumb.jpg', '/static/3picthumb.jpg', '/static/4picthumb.jpg']
 	conn = sqlite3.connect('./lol.db')
 	cursor = conn.cursor()
 	try:
