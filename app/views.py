@@ -163,10 +163,10 @@ def comment():
 		date = datetime.now()
 		conn = sqlite3.connect('./comment.db')
 		cursor = conn.cursor()
-		if not request.form[botcheck]:
-			cursor.execute("INSERT INTO comment VALUES (?,?,?)", (request.form["nick"], request.form["content"], str(datetime.now()).split()[0]))
-			conn.commit()
-			conn.close()
+		# if not request.form[botcheck]:
+		cursor.execute("INSERT INTO comment VALUES (?,?,?)", (request.form["nick"], request.form["content"], str(datetime.now()).split()[0]))
+		conn.commit()
+		conn.close()
 		return redirect("/comments")
 	else:	
 		return render_template('comment.html', title = 'comment')
@@ -175,7 +175,7 @@ def comment():
 def comments():
 	conn = sqlite3.connect('./comment.db')
 	cursor = conn.cursor()
-	cursor.execute("SELECT * FROM comment")
+	cursor.execute("SELECT * FROM comment ORDER BY date DESC")
 	data = cursor.fetchall()
 	conn.commit()
 	conn.close()	
