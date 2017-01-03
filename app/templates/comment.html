@@ -20,42 +20,18 @@
                         }
                 }
                 x.send()
-                // if len(inputnickfield.value) > 50 {
-                //     checkfieldnick.innerText = "Некорректный формат данных, длина ника не может составлять более 50 знаков."
-                // }
-                // else {
-                //     checkfieldnick.innerText =""   
-                // }
             }
-            // function checkmail() {
-            //     var x = new XMLHttpRequest();
-            //     x.open("GET", "http://127.0.0.1:8080/checkmail?name=" + encodeURIComponent(inputmailfield.value))
-            //     x.onreadystatechange = function() {
-            //         if (x.readyState != 4) return
-            //             if (x.status == 200) {
-            //                 checkfieldmail.innerText = x.responseText
-            //             }
-            //     }
-            //     x.send()
-            // }
-            // function pushdata() {
-            //     var xhr = new XMLHttpRequest();
-            //     var nick = inputnickfield.value
-            //     var mail = inputmailfield.value
-            //     var content = inputcontentfield.value
-            //     var body = 'nick=' + encodeURIComponent(nick) + '&mail=' + encodeURIComponent(mail) + '&content=' + encodeURIComponent(content);
-
-            //     xhr.open("POST", '/pushdata', true)
-            //     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-            //     console.log('post')
-            //     xhr.onreadystatechange = function() {
-            //         if (xhr.readyState != 4) return
-            //             if (xhr.status == 200) {
-            //                 postcontent.innerText = xhr.responseText
-            //             }
-            //     }
-            //     xhr.send(body);
-            // }
+            function checkcontent() {
+                var x = new XMLHttpRequest();
+                x.open("GET", "http://127.0.0.1:8080/checkcontent?content=" + encodeURIComponent(inputcontentfield.value))
+                x.onreadystatechange = function() {
+                    if (x.readyState != 4) return
+                        if (x.status == 200) {
+                            checkfieldcontent.innerText = x.responseText
+                        }
+                }
+                x.send()
+            }
         </script>
         <h1 class="likes">Написать комментарий</h1>
         <div class="newcomment">
@@ -64,26 +40,19 @@
                     <label for="inputnickfield">Ваш ник:</label>
                 </div>
                 <div>   
-                    <input type="input" id="inputnickfield" name="nick" class="nick" autocomplete="on" placeholder="nick, лат буквы и цифры" pattern="^[А-Яа-яЁёA-Za-z\s]{1,15}" oninput="checknick()" required>
-                    <p class="remark">Формат: В нике могут быть использованы любые английские и русские буквы, а также пробелы. Его длина может составлять от 1 до 15 знаков.</p>
-                    <!-- <span id="checkfieldnick"></span> -->
+                    <input type="input" id="inputnickfield" name="nick" class="nick" autocomplete="on" placeholder="Ник: буквы и цифры" pattern="^[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я0-9-_\.]{1,20}$" required>
+                    <p class="remark">Формат: В нике могут быть использованы любые английские и русские буквы, цифры, а также пробелы, однако начинаться он может только с буквы. Его длина может составлять от 2 до 20 знаков</p>
                 </div>
                 <br>
                 <br>  
-                <!-- <div>
-                    <label for="inputmailfield">Ваш e-mail:</label>
-                </div> -->  
-                <!-- <div>
-                    <input type="email" id="inputmailfield" class="mail" autocomplete="on" placeholder="Адрес эл. почты" oninput="checkmail()" pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$" required>
-                    <span id="checkfieldmail"></span>
-                </div> -->
                 <br>
                 <br>  
                 <div>
                     <label for="content">Содержание:</label>
                 </div>
                 <div>   
-                    <textarea rows="10" cols="50" id="inputcontentfield" name="content" pattern="{1,500}$" placeholder="Введите здесь комментарий. Будьте внимательны и вежливы!"></textarea>
+                    <input type="input" id="inputcontentfield" name="content" pattern="^[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я0-9-_\.]{1,500}$" placeholder="Введите комментарий" required>
+                    <p class="remark">Формат: В комментарии могут быть использованы любые английские и русские буквы, цифры, а также пробелы, однако начинаться он может только с буквы. Его длина может составлять от 2 до 500 знаков. Будьте внимательны и вежливы</p>
                 </div>
                 <br>
                 <br> 
