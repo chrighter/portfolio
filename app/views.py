@@ -118,15 +118,16 @@ def visitors():
 	cursor.execute("SELECT count(*) FROM visitors WHERE day = '%s'" % (str(datetime.now()).split()[0]))
 	browsing_today = cursor.fetchone()[0]
 	cursor.execute("SELECT date, ip FROM visitors WHERE ip = '%s'" % (request.remote_addr))
-	visits = cursor.fetchall()
-	last_visit = visits[len(visits)-2]
+	last_visit = cursor.fetchall()
+	last_visit = last_visit[len(last_visit)-2]
 	if not last_visit:
 		last_visit = "Чуть-чуть не считается (0)"
 	else:
-		last_visit = last_visit[0][:-7] 	
+		last_visit = last_visit[0][:-7] 
 	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '{0}' AND {1} - time > 1800".format(request.remote_addr, time.time()))
+	# cursor.execute("SELECT * FROM visitors")
 	visits = cursor.fetchone()[0]
-	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '{0}' AND {1} - time > 1800 AND day = {2}".format(request.remote_addr, time.time(), str(datetime.now()).split()[0]))
+	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '{0}' AND {1} - time > 1800 AND day = '{2}'".format(request.remote_addr, time.time(), str(datetime.now()).split()[0]))
 	visits_today = cursor.fetchone()[0]
 	img = Image(width=700, height=150)
 	with Drawing() as draw:
