@@ -87,7 +87,7 @@
                 document.getElementById("viewer").src = '/static/'+e
                 window.history.pushState({}, '', '/pictures/'+e);
                 likeview(e);
-                setInterval(likeview(e), 1000);
+                currentpic = '/static/'+e
             }
             
             window.addEventListener("load", function(e) {
@@ -109,11 +109,11 @@
                     modal.style.display = "block";
                     document.getElementById("viewer").src = '/static/'+arr[arr.length-1]
                     likeview(arr[arr.length-1]);
+                    currentpic = '/static/'+arr[arr.length-1]
                 }
             
             window.addEventListener("popstate", lalala);
             
-
             
             window.onkeydown = function( event ) {
                 if ( event.keyCode == 27 ) {
@@ -229,6 +229,13 @@
                 }
                 x.send()
             }
+
+            function kek() {
+                if (currentpic) {
+                    likeview(currentpic)
+                }
+            }
+            setInterval(kek, 10000);
 
         </script>
 
