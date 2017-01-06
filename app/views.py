@@ -216,7 +216,7 @@ def like():
 				count = result[0] - 1
 				cursor.execute("DELETE FROM likes WHERE id = ? and ip = ?", (request.form["id"], request.remote_addr))
 				cursor.execute("INSERT INTO likes VALUES (?, ?, ?)", (request.form["id"], count, ""))
-			else:	
+			else:
 				count = result[0] + 1
 				cursor.execute("DELETE FROM likes WHERE id = ? and ip = ?", (request.form["id"], request.remote_addr))
 				cursor.execute("INSERT INTO likes VALUES (?, ?, ?)", (request.form["id"], count, request.remote_addr))
@@ -225,8 +225,10 @@ def like():
 	else:
 		cursor = conn.cursor()
 		id = request.args.get("id", "").strip()
-		cursor.execute("SELECT count FROM likes WHERE id = ?", (id, ))
+		print(id)
+		cursor.execute("SELECT count(*) FROM likes WHERE id = ? and count = 1", (id, ))
 		result = cursor.fetchone()
+		print(result)
 		if not result:
 			count = 0
 		else:
