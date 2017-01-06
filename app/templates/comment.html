@@ -9,30 +9,6 @@
                 font-size: 14px;
             }
         </style>
-        <script>
-            function checknick() {
-                var x = new XMLHttpRequest();
-                x.open("GET", "http://127.0.0.1:8080/checknick?name=" + encodeURIComponent(inputnickfield.value))
-                x.onreadystatechange = function() {
-                    if (x.readyState != 4) return
-                        if (x.status == 200) {
-                            checkfieldnick.innerText = x.responseText
-                        }
-                }
-                x.send()
-            }
-            function checkcontent() {
-                var x = new XMLHttpRequest();
-                x.open("GET", "http://127.0.0.1:8080/checkcontent?content=" + encodeURIComponent(inputcontentfield.value))
-                x.onreadystatechange = function() {
-                    if (x.readyState != 4) return
-                        if (x.status == 200) {
-                            checkfieldcontent.innerText = x.responseText
-                        }
-                }
-                x.send()
-            }
-        </script>
         <h1 class="likes">Написать комментарий</h1>
         <div class="newcomment">
             <form method="POST">

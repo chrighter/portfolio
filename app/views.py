@@ -121,7 +121,7 @@ def visitors():
 	last_visit = cursor.fetchall()
 	last_visit = last_visit[len(last_visit)-2]
 	if not last_visit:
-		last_visit = "Чуть-чуть не считается (0)"
+		last_visit = "Чуть-чуть не считается (0 посещений)"
 	else:
 		last_visit = last_visit[0][:-7] 
 	cursor.execute("SELECT count(*) FROM visitors WHERE ip = '{0}' AND {1} - time > 1800".format(request.remote_addr, time.time()))
@@ -204,23 +204,27 @@ conn = sqlite3.connect('./likes.db')
 def like():
 	if request.method == "POST":
 		cursor = conn.cursor()
-		cursor.execute("SELECT count FROM likes WHERE id = ?", (request.form["id"], ))
+		cursor.execute("SELECT ip FROM likes WHERE ip = ?", (request.remote_addr, ))
+		resip = cursor.fetchone()
+		cursor.execute("SELECT count FROM likes WHERE id = ? and ip = ?", (request.form["id"], request.remote_addr, ))
 		result = cursor.fetchone()
-		if result[0] < 0:
-			count = count + (result[0]) * (-1)
 		if not result:
 			count = 1
-			cursor.execute("INSERT INTO likes VALUES (?, ?)", (request.form["id"], 1))
-		else:	
-			count = result[0] + 1
-			cursor.execute("DELETE FROM likes WHERE id = ?", (request.form["id"], ))
-			cursor.execute("INSERT INTO likes VALUES (?, ?)", (request.form["id"], count))
+			cursor.execute("INSERT INTO likes VALUES (?, ?, ?)", (request.form["id"], 1, request.remote_addr))
+		else:
+			if resip:
+				count = result[0] - 1
+				cursor.execute("DELETE FROM likes WHERE id = ? and ip = ?", (request.form["id"], request.remote_addr))
+				cursor.execute("INSERT INTO likes VALUES (?, ?, ?)", (request.form["id"], count, ""))
+			else:	
+				count = result[0] + 1
+				cursor.execute("DELETE FROM likes WHERE id = ? and ip = ?", (request.form["id"], request.remote_addr))
+				cursor.execute("INSERT INTO likes VALUES (?, ?, ?)", (request.form["id"], count, request.remote_addr))
 		conn.commit()
 		return str(count)
 	else:
 		cursor = conn.cursor()
 		id = request.args.get("id", "").strip()
-		print("ID",id)
 		cursor.execute("SELECT count FROM likes WHERE id = ?", (id, ))
 		result = cursor.fetchone()
 		if not result:
@@ -229,4 +233,4 @@ def like():
 			count = result[0]
 		conn.commit()
 		return str(count)
-			
+		

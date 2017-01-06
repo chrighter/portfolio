@@ -12,7 +12,7 @@ import time
 
 
 conn = sqlite3.connect('./likes.db')
-conn.execute("CREATE TABLE IF NOT EXISTS likes (id TEXT, count INT)")
+conn.execute("CREATE TABLE IF NOT EXISTS likes (id TEXT, count INT, ip TEXT)")
 conn.commit()
 conn.close()
 print('БД likes инициализирована')
