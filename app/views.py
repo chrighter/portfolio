@@ -220,8 +220,11 @@ def like():
 				count = result[0] + 1
 				cursor.execute("DELETE FROM likes WHERE id = ? and ip = ?", (request.form["id"], request.remote_addr))
 				cursor.execute("INSERT INTO likes VALUES (?, ?, ?)", (request.form["id"], count, request.remote_addr))
+		cursor.execute("SELECT count(*) FROM likes WHERE id = ? and count = 1", (request.form["id"], ))
+		result = cursor.fetchone()		
 		conn.commit()
-		return str(count)
+		# return str(count)
+		return str(result[0])
 	else:
 		cursor = conn.cursor()
 		id = request.args.get("id", "").strip()
