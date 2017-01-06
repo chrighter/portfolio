@@ -87,7 +87,7 @@
                 document.getElementById("viewer").src = '/static/'+e
                 window.history.pushState({}, '', '/pictures/'+e);
                 likeview(e);
-                currentpic = '/static/'+e
+                currentpic = e
             }
             
             window.addEventListener("load", function(e) {
@@ -109,7 +109,7 @@
                     modal.style.display = "block";
                     document.getElementById("viewer").src = '/static/'+arr[arr.length-1]
                     likeview(arr[arr.length-1]);
-                    currentpic = '/static/'+arr[arr.length-1]
+                    currentpic = arr[arr.length-1]
                 }
             
             window.addEventListener("popstate", lalala);
